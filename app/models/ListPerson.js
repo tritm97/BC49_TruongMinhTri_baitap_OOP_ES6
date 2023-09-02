@@ -10,7 +10,7 @@ export default class ListPerson {
         this.arrUser.push(user);
         this.renderNguoiDung();
         this.luuXuongLocal();
-        console.log(this.arrUser);
+        // console.log(this.arrUser);
         document.getElementById('userForm').reset();
         document.getElementById('btnClose').click();
     };

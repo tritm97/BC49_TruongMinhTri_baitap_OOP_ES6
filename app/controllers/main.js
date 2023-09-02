@@ -5,6 +5,103 @@ import Customer from "../models/Customer.js";
 import ListPerson from "../models/ListPerson.js";
 import ListBinding from "../models/ListBinding.js";
 
+let listPerson = new ListPerson();
+
+// validation form
+const STUDENT_FIELD = [
+  'id', 'type', 'name', 'email', 'address', 'math', 'physic', 'chemistry', 
+];
+
+const SCORE_FIELD = [
+  'math', 'physic', 'chemistry'
+];
+
+const STUDENT_FIELD_NOTI = [
+  'invalidID', 'invalidLoai', 'invalidTen', 'invalidEmail', 'invalidDiaChi', 'invalidDiemToan', 'invalidDiemLy', 'invalidDiemHoa'
+];
+
+const SCORE_FIELD_NOTI = [
+  'invalidDiemToan', 'invalidDiemLy', 'invalidDiemHoa'
+];
+
+const EMPLOYEE_FIELD = [
+  'id', 'type', 'name', 'email', 'address', 'working_days', 'daily_wages'
+];
+
+const INTEGER_FIELD = [
+  'working_days', 'daily_wages'
+];
+
+const EMPLOYEE_FIELD_NOTI = [
+  'invalidID', 'invalidLoai', 'invalidTen', 'invalidEmail', 'invalidDiaChi', 'invalidSoNgayLam', 'invalidLuongTheoNgay'
+];
+
+const INTEGER_FIELD_NOTI = [
+  'invalidSoNgayLam', 'invalidLuongTheoNgay'
+];
+
+const CUSTOMER_FIELD = [
+  'id', 'type', 'name', 'email', 'address', 'company_name', 'cost'
+];
+
+const INTEGER_FIELD2 = ['cost'];
+
+const CUSTOMER_FIELD_NOTI = [
+  'invalidID', 'invalidLoai', 'invalidTen', 'invalidEmail', 'invalidDiaChi', 'invalidTenCongTy', 'invalidTriGiaHoaDon'
+];
+
+const INTEGER_FIELD_NOTI2 = ['invalidTriGiaHoaDon'];
+
+const isValidStudent = () => {
+  let result = true;
+  result = CHECK_EMPTY_FIELD(STUDENT_FIELD, STUDENT_FIELD_NOTI) && CHECK_ID() && CHECK_NAME() && CHECK_EMAIL() && CHECK_SCORE(SCORE_FIELD, SCORE_FIELD_NOTI);
+  return result;
+};
+
+const isValidEmployee = () => {
+  let result2 = true;
+  result2 = CHECK_EMPTY_FIELD(EMPLOYEE_FIELD, EMPLOYEE_FIELD_NOTI) && CHECK_ID() && CHECK_NAME() && CHECK_EMAIL() && CHECK_INTEGER_FIELD(INTEGER_FIELD, INTEGER_FIELD_NOTI);
+  return result2;
+};
+
+const isValidCustomer = () => {
+  let result3 = true;
+  result3 = CHECK_EMPTY_FIELD(CUSTOMER_FIELD, CUSTOMER_FIELD_NOTI) && CHECK_ID() && CHECK_NAME() && CHECK_EMAIL() && CHECK_INTEGER_FIELD(INTEGER_FIELD2, INTEGER_FIELD_NOTI2);
+  return result3;
+};
+
+const isValid = () => {
+  let validMap = true;
+  let check_type = document.getElementById('type').value;
+  switch (check_type) {
+    case 'sinhVien' : {
+      validMap = validMap && isValidStudent();
+    };
+    break;
+    case 'nhanVien' : {
+      validMap = validMap && isValidEmployee();
+    };
+    break;
+    case 'khachHang' : {
+      validMap = validMap && isValidCustomer();
+    };
+    break;
+    case '' : {
+      validMap = validMap && false;
+    }
+  }
+  return validMap;
+};
+
+
+
+
+
+
+
+
+
+// thay đổi lựa chọn loại người dùng sẽ hiển thị form nhập thông tin với các field phù hợp với loại người dùng đã chọn
 const btn_not_sinhVien = [
   'soNgayLam', 'luongTheoNgay', 'tenCongTy', 'triGiaHoaDon'
 ];
@@ -23,7 +120,6 @@ const btn_not_khachHang = [
 const btn_khachHang = [
   'tenCongTy', 'triGiaHoaDon'
 ];
-
 const typeChangeSV = () => {
   for (let id of btn_not_sinhVien) {
     document.getElementById(id).style.display = 'none';
@@ -70,11 +166,16 @@ typeChange.addEventListener("change", function() {
   }
 });
 
-let arrInput = [
+
+
+
+
+
+const arrInput = [
   'name', 'address', 'id', 'email', 'type', 'math', 'physic', 'chemistry', 'working_days', 'daily_wages', 'company_name', 'cost'
 ]
 
-let listPerson = new ListPerson();
+
 
 // gọi dữ liệu từ localStorage và render ra ngay khi vừa vào trang
 listPerson.layDuLieuLocal();
@@ -90,14 +191,17 @@ document.getElementById('userForm').onsubmit = () => {
     let id = domUser.id;
     user[id] = value;
   }
-  listPerson.themNguoiDung(user);
-}
+
+  if (isValid()) {
+    listPerson.themNguoiDung(user);
+  }
+};
 
 // khi bấm thêm thì ẩn nút sửa
 document.getElementById('themNguoiDung').onclick = () => {
   document.getElementById('btnCapNhat').style.display = 'none';
   document.getElementById('btnThem').style.display = 'inline-block';
-}
+};
 
 // xoá người dùng
 window.xoaNguoiDung = function (id) {
@@ -175,12 +279,14 @@ document.getElementById('btnCapNhat').onclick = () => {
       let {id, value} = item;
       nguoiDungDaChinhSua[id] = value;
   }
-  listPerson.capNhatNguoiDung(nguoiDungDaChinhSua);
 
-  // khi cập nhật xong nhớ tắt modal + clear form để lần sau không còn dữ liệu đó + mở readOnly cho input foodID
-  document.querySelector('#btnClose').click();
-  document.querySelector('#userForm').reset();
-  document.getElementById('id').readOnly = false;
+  if (isValid()) {
+    listPerson.capNhatNguoiDung(nguoiDungDaChinhSua);
+    // khi cập nhật xong nhớ tắt modal + clear form để lần sau không còn dữ liệu đó + mở readOnly cho input foodID
+    document.querySelector('#btnClose').click();
+    document.querySelector('#userForm').reset();
+    document.getElementById('id').readOnly = false;
+  }
 };
 
 // lọc người dùng dựa theo loại

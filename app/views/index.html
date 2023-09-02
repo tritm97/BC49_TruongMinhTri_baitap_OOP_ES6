@@ -282,6 +282,16 @@
             <form class="needs-validation" id="userForm">
               <div class="row">
                 <div class="col-md-6 mb-3">
+                  <label for="type">Loại</label>
+                  <select class="custom-select d-block w-100" id="type">
+                    <option value="">Chọn loại người dùng</option>
+                    <option value="sinhVien">Sinh viên</option>
+                    <option value="nhanVien">Nhân viên</option>
+                    <option value="khachHang">Khách hàng</option>
+                  </select>
+                  <div id="invalidLoai" class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-6 mb-3">
                   <label for="id">ID</label>
                   <input
                     type="text"
@@ -293,16 +303,6 @@
                   <div id="invalidID" class="invalid-feedback"></div>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="type">Loại</label>
-                  <select class="custom-select d-block w-100" id="type">
-                    <option value="">Chọn loại người dùng</option>
-                    <option value="sinhVien">Sinh viên</option>
-                    <option value="nhanVien">Nhân viên</option>
-                    <option value="khachHang">Khách hàng</option>
-                  </select>
-                  <div id="invalidLoai" class="invalid-feedback"></div>
-                </div>
-                <div class="col-md-6 mb-3">
                   <label for="name">Tên</label>
                   <input
                     type="text"
@@ -310,7 +310,7 @@
                     id="name"
                     placeholder="Nhập họ tên"
                   />
-                  <div id="invalidTen" class="invalid-form"></div>
+                  <div id="invalidTen" class="invalid-feedback"></div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="email">Email</label>
@@ -320,7 +320,7 @@
                     id="email"
                     placeholder="Nhập email"
                   />
-                  <div id="invalidEmail" class="invalid-form"></div>
+                  <div id="invalidEmail" class="invalid-feedback"></div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="address">Địa chỉ</label>
@@ -339,8 +339,7 @@
                 <div class="col-md-6 mb-3" id="diemToan">
                   <label for="math">Điểm toán</label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     class="form-control"
                     id="math"
                     placeholder="Nhập điểm toán"
@@ -351,8 +350,7 @@
                 <div class="col-md-6 mb-3" id="diemLy">
                   <label for="physic">Điểm lý</label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     class="form-control"
                     id="physic"
                     placeholder="Nhập điểm lý"
@@ -363,8 +361,7 @@
                 <div class="col-md-6 mb-3" id="diemHoa">
                   <label for="chemistry">Điểm hoá</label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     class="form-control"
                     id="chemistry"
                     placeholder="Nhập điểm hoá"
@@ -375,8 +372,7 @@
                 <div class="col-md-6 mb-3" id="soNgayLam">
                   <label for="working_days">Số ngày làm việc</label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     class="form-control"
                     id="working_days"
                     placeholder="Nhập số ngày làm việc"
@@ -387,8 +383,7 @@
                 <div class="col-md-6 mb-3" id="luongTheoNgay">
                   <label for="daily_wages">Lương theo ngày</label>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
                     class="form-control"
                     id="daily_wages"
                     placeholder="Nhập lương theo ngày"
@@ -410,7 +405,7 @@
                 <div class="col-md-6 mb-3" id="triGiaHoaDon">
                   <label for="cost">Trị giá hoá đơn</label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     id="cost"
                     placeholder="Nhập trị giá hoá đơn"
@@ -461,6 +456,8 @@
       data-cf-beacon='{"rayId":"7fe4aea778224488","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2023.8.0","si":100}'
       crossorigin="anonymous"
     ></script>
+    <script src="./../util/util.js"></script>
+    <script src="./../validation/validation.js"></script>
     <script type="module" src="./../controllers/main.js"></script>
   </body>
 </html>
