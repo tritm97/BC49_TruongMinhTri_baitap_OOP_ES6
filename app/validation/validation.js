@@ -25,7 +25,7 @@ const CHECK_ID = () => {
         document.getElementById('invalidID').style.display = 'none';
     } else {
         valid = valid && false;
-        document.getElementById('invalidID').innerHTML = 'ID phải là số';
+        document.getElementById('invalidID').innerHTML = 'ID phải là số nguyên dương';
         document.getElementById('invalidID').style.display = 'inline-block';
     }
     return valid;
@@ -93,7 +93,7 @@ const CHECK_INTEGER_FIELD = (arr, noti) => {
             document.getElementById(noti[index]).style.display = 'none';
         } else {
             valid = valid && false;
-            document.getElementById(noti[index]).innerHTML = 'Số nhập vào phải là số nguyên';
+            document.getElementById(noti[index]).innerHTML = 'Số nhập vào phải là số nguyên dương';
             document.getElementById(noti[index]).style.display = 'inline-block';
         }
     }
